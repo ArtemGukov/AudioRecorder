@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ACA1819723D26CA7005B68E3 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA1819623D26CA6005B68E3 /* AlertController.swift */; };
+		ACA1819923D26F72005B68E3 /* Extension+TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA1819823D26F72005B68E3 /* Extension+TableViewController.swift */; };
 		ACDE8EEA23CE5C1500449234 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDE8EE923CE5C1500449234 /* AppDelegate.swift */; };
 		ACDE8EEC23CE5C1500449234 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDE8EEB23CE5C1500449234 /* SceneDelegate.swift */; };
 		ACDE8EF123CE5C1500449234 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACDE8EEF23CE5C1500449234 /* Main.storyboard */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		ACA1819623D26CA6005B68E3 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
+		ACA1819823D26F72005B68E3 /* Extension+TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+TableViewController.swift"; sourceTree = "<group>"; };
 		ACDE8EE623CE5C1500449234 /* AudioRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACDE8EE923CE5C1500449234 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACDE8EEB23CE5C1500449234 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +63,8 @@
 				ACDE8EE923CE5C1500449234 /* AppDelegate.swift */,
 				ACDE8EEB23CE5C1500449234 /* SceneDelegate.swift */,
 				ACDE8EEF23CE5C1500449234 /* Main.storyboard */,
+				ACA1819623D26CA6005B68E3 /* AlertController.swift */,
+				ACA1819823D26F72005B68E3 /* Extension+TableViewController.swift */,
 				ACDE8EFD23CE5D8100449234 /* RecorderViewController.swift */,
 				ACDE8EF223CE5C1800449234 /* Assets.xcassets */,
 				ACDE8EF423CE5C1800449234 /* LaunchScreen.storyboard */,
@@ -138,7 +144,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACA1819723D26CA7005B68E3 /* AlertController.swift in Sources */,
 				ACDE8EEA23CE5C1500449234 /* AppDelegate.swift in Sources */,
+				ACA1819923D26F72005B68E3 /* Extension+TableViewController.swift in Sources */,
 				ACDE8EFE23CE5D8100449234 /* RecorderViewController.swift in Sources */,
 				ACDE8EEC23CE5C1500449234 /* SceneDelegate.swift in Sources */,
 			);
