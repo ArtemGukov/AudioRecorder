@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		ACA1819723D26CA7005B68E3 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA1819623D26CA6005B68E3 /* AlertController.swift */; };
 		ACA1819923D26F72005B68E3 /* Extension+TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA1819823D26F72005B68E3 /* Extension+TableViewController.swift */; };
+		ACA1819B23D27ACF005B68E3 /* Extension+RecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA1819A23D27ACF005B68E3 /* Extension+RecorderViewController.swift */; };
 		ACDE8EEA23CE5C1500449234 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDE8EE923CE5C1500449234 /* AppDelegate.swift */; };
 		ACDE8EEC23CE5C1500449234 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDE8EEB23CE5C1500449234 /* SceneDelegate.swift */; };
 		ACDE8EF123CE5C1500449234 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACDE8EEF23CE5C1500449234 /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 /* Begin PBXFileReference section */
 		ACA1819623D26CA6005B68E3 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		ACA1819823D26F72005B68E3 /* Extension+TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+TableViewController.swift"; sourceTree = "<group>"; };
+		ACA1819A23D27ACF005B68E3 /* Extension+RecorderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+RecorderViewController.swift"; sourceTree = "<group>"; };
 		ACDE8EE623CE5C1500449234 /* AudioRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACDE8EE923CE5C1500449234 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACDE8EEB23CE5C1500449234 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +43,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		ACA1819C23D28291005B68E3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				ACA1819823D26F72005B68E3 /* Extension+TableViewController.swift */,
+				ACA1819A23D27ACF005B68E3 /* Extension+RecorderViewController.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		ACA1819D23D28299005B68E3 /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				ACDE8EF223CE5C1800449234 /* Assets.xcassets */,
+				ACDE8EE923CE5C1500449234 /* AppDelegate.swift */,
+				ACDE8EEB23CE5C1500449234 /* SceneDelegate.swift */,
+			);
+			path = "Supporting files";
+			sourceTree = "<group>";
+		};
+		ACA1819E23D282A5005B68E3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				ACDE8EEF23CE5C1500449234 /* Main.storyboard */,
+				ACDE8EF423CE5C1800449234 /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		ACA1819F23D282B7005B68E3 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				ACA1819623D26CA6005B68E3 /* AlertController.swift */,
+				ACDE8EFD23CE5D8100449234 /* RecorderViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		ACDE8EDD23CE5C1500449234 = {
 			isa = PBXGroup;
 			children = (
@@ -60,14 +99,10 @@
 		ACDE8EE823CE5C1500449234 /* AudioRecorder */ = {
 			isa = PBXGroup;
 			children = (
-				ACDE8EE923CE5C1500449234 /* AppDelegate.swift */,
-				ACDE8EEB23CE5C1500449234 /* SceneDelegate.swift */,
-				ACDE8EEF23CE5C1500449234 /* Main.storyboard */,
-				ACA1819623D26CA6005B68E3 /* AlertController.swift */,
-				ACA1819823D26F72005B68E3 /* Extension+TableViewController.swift */,
-				ACDE8EFD23CE5D8100449234 /* RecorderViewController.swift */,
-				ACDE8EF223CE5C1800449234 /* Assets.xcassets */,
-				ACDE8EF423CE5C1800449234 /* LaunchScreen.storyboard */,
+				ACA1819E23D282A5005B68E3 /* View */,
+				ACA1819F23D282B7005B68E3 /* Controllers */,
+				ACA1819C23D28291005B68E3 /* Extensions */,
+				ACA1819D23D28299005B68E3 /* Supporting files */,
 				ACDE8EF723CE5C1800449234 /* Info.plist */,
 			);
 			path = AudioRecorder;
@@ -146,6 +181,7 @@
 			files = (
 				ACA1819723D26CA7005B68E3 /* AlertController.swift in Sources */,
 				ACDE8EEA23CE5C1500449234 /* AppDelegate.swift in Sources */,
+				ACA1819B23D27ACF005B68E3 /* Extension+RecorderViewController.swift in Sources */,
 				ACA1819923D26F72005B68E3 /* Extension+TableViewController.swift in Sources */,
 				ACDE8EFE23CE5D8100449234 /* RecorderViewController.swift in Sources */,
 				ACDE8EEC23CE5C1500449234 /* SceneDelegate.swift in Sources */,

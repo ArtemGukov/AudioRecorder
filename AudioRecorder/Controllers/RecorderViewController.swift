@@ -11,7 +11,7 @@ import AVFoundation
 
 class RecorderViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
-    
+//    MARK: - @IBOutlets
     
     @IBOutlet weak var recordingTimeLabel: UILabel!
     @IBOutlet weak var recordButton: UIButton!
@@ -19,6 +19,8 @@ class RecorderViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
     
     @IBOutlet weak var listRecordingsTableView: UITableView!
 
+//    MARK: - Properties
+    
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
     var recordSession: AVAudioSession!
@@ -29,7 +31,6 @@ class RecorderViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         setupUI()
         checkPermission()
@@ -42,7 +43,9 @@ class RecorderViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
         audioPlayer = nil
     }
     
-    func setupUI() {
+//    MARK: - Custom methods
+    
+    private func setupUI() {
         
         recordButton.layer.cornerRadius = recordButton.bounds.width / 2
         recordButton.backgroundColor = .systemRed
@@ -51,30 +54,8 @@ class RecorderViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
         stopButton.layer.cornerRadius = stopButton.bounds.width / 2
         stopButton.isHighlighted = true
     }
-
-    @objc func updateAudioMeter(_ timer: Timer) {
-        
-        if let recorder = self.audioRecorder {
-            if recorder.isRecording {
-                let min = Int(recorder.currentTime / 60)
-                let sec = Int(recorder.currentTime.truncatingRemainder(dividingBy: 60))
-                let timeString = String(format: "%02d:%02d", min, sec)
-                recordingTimeLabel.text = timeString
-                recorder.updateMeters()
-            }
-        }
-    }
     
-    func startTimer() {
-        self.meterTimer = Timer.scheduledTimer(
-        timeInterval: 0.01,
-        target: self,
-        selector: #selector(self.updateAudioMeter(_:)),
-        userInfo: nil,
-        repeats: true)
-    }
-    
-    func checkPermission() {
+    private func checkPermission() {
         
         recordSession = AVAudioSession.sharedInstance()
         
@@ -84,17 +65,14 @@ class RecorderViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
             recordSession.requestRecordPermission() { [unowned self] allowed in
                 
                 if allowed {
-                     
-                    DispatchQueue.main.async {
-                        if let number = UserDefaults.standard.object(forKey: "myNumber") as? Int {
-                            
-                            self.numberOfRecords = number
-                        }
+                    
+                    if let number = UserDefaults.standard.object(forKey: "myNumber") as? Int {
+                        
+                        self.numberOfRecords = number
                     }
                     
                 } else {
                     AlertController.alert(message: "Запись невозможна, так как доступ к микрофону запрещен", target: self)
-                    return
                 }
             }
             
@@ -111,7 +89,7 @@ class RecorderViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
         return path[0]
     }
     
-    func setupRecorder() {
+    private func setupRecorder() {
 
         let recordingName = getDirectoryUrl().appendingPathComponent("Record_\(numberOfRecords).m4a")
         
@@ -135,7 +113,7 @@ class RecorderViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
         }
     }
     
-    func finishAudioRecording(success: Bool) {
+    private func finishAudioRecording(success: Bool) {
         
         audioRecorder.stop()
         audioRecorder = nil
@@ -149,6 +127,8 @@ class RecorderViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
         recordButton.isEnabled = true
         recordButton.isHighlighted = false
     }
+    
+//    MARK: - @IBActions
     
     @IBAction func recordPressed(_ sender: UIButton) {
         
@@ -180,6 +160,7 @@ class RecorderViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
         recordButton.isEnabled = true
         recordButton.isHighlighted = false
 
+        recordingTimeLabel.text = "00:00"
         meterTimer.invalidate()
         
         if audioRecorder != nil {
@@ -191,7 +172,8 @@ class RecorderViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
     }
 
     
-    //delegate
+//    MARK: - AVAudioRecorderDelegate
+    
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
 
         if !flag {
