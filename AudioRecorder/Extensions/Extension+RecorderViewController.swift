@@ -25,7 +25,7 @@ extension RecorderViewController {
         
     func startTimer() {
        self.meterTimer = Timer.scheduledTimer(
-       timeInterval: 0.01,
+       timeInterval: 0.1,
        target: self,
        selector: #selector(self.updateAudioMeter(_:)),
        userInfo: nil,

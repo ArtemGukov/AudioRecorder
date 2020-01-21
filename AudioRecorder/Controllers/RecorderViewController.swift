@@ -24,8 +24,8 @@ class RecorderViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
     var recordSession: AVAudioSession!
-
-    var numberOfRecords = 0
+    
+    var recordings = [URL]()
     
     var meterTimer: Timer!
     
@@ -33,6 +33,7 @@ class RecorderViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
         super.viewDidLoad()
         
         setupUI()
+        listRecordings()
         checkPermission()
     }
     
@@ -52,7 +53,6 @@ class RecorderViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
         
         stopButton.isEnabled = false
         stopButton.layer.cornerRadius = stopButton.bounds.width / 2
-        stopButton.isHighlighted = true
     }
     
     private func checkPermission() {
@@ -66,33 +66,56 @@ class RecorderViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
                 
                 if allowed {
                     
-                    if let number = UserDefaults.standard.object(forKey: "myNumber") as? Int {
-                        
-                        self.numberOfRecords = number
-                    }
-                    
+                    print("Доступ получен")
+
                 } else {
-                    AlertController.alert(message: "Запись невозможна, так как доступ к микрофону запрещен", target: self)
+                    
+                    DispatchQueue.main.async {
+                        self.recordButton.isEnabled = false
+                        self.recordButton.backgroundColor = .darkGray
+                        
+                        self.stopButton.isEnabled = false
+                        
+                        self.recordingTimeLabel.text = "Нет доступа"
+                    }
                 }
             }
             
             if AVAudioSession.sharedInstance().recordPermission == .denied {
-                AlertController.alert(message: "Необходим доступ к микрофону", target: self)
+
+                print("Нет доступа")
             }
         } catch {
             print(error.localizedDescription)
         }
     }
     
-    func getDirectoryUrl() -> URL {
+    private func getDirectoryUrl() -> URL {
         let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return path[0]
     }
     
+    func listRecordings() {
+        
+        do {
+            let urls = try FileManager.default.contentsOfDirectory(at:
+                getDirectoryUrl(), includingPropertiesForKeys: nil, options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
+            self.recordings = urls.filter({ (name: URL) -> Bool in
+                return name.pathExtension == "m4a"
+            }).sorted(by: { $0.lastPathComponent > $1.lastPathComponent })
+                        
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
     private func setupRecorder() {
 
-        let recordingName = getDirectoryUrl().appendingPathComponent("Record_\(numberOfRecords).m4a")
+        let format = DateFormatter()
+        format.dateFormat = "yyyy-MM-dd-HH-mm-ss"
         
+        let recordingName = getDirectoryUrl().appendingPathComponent("Recording_\(format.string(from: Date())).m4a")
+                
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
             AVSampleRateKey: 44100,
@@ -119,9 +142,9 @@ class RecorderViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
         audioRecorder = nil
 
         if success {
-            print("Recording finished successfully.")
+            print("Успешная запись :)")
         } else {
-            AlertController.alert(message: "Что-то пошло не так", target: self)
+            print("Что-то пошло не так :(")
         }
         
         recordButton.isEnabled = true
@@ -138,7 +161,6 @@ class RecorderViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
         
         if audioRecorder == nil {
             
-            numberOfRecords += 1
             setupRecorder()
             
             recordButton.isEnabled = false
@@ -165,9 +187,9 @@ class RecorderViewController: UIViewController, AVAudioRecorderDelegate, AVAudio
         
         if audioRecorder != nil {
             finishAudioRecording(success: true)
-            
-            UserDefaults.standard.set(numberOfRecords, forKey: "myNumber")
-            listRecordingsTableView.reloadData()
+
+            listRecordings()
+            listRecordingsTableView.reloadData()   
         }
     }
 

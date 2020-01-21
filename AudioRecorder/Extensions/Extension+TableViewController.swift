@@ -13,16 +13,14 @@ extension RecorderViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return numberOfRecords
+        return recordings.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let path = getDirectoryUrl().appendingPathComponent("Record_\(indexPath.row + 1).m4a")
+        let path = recordings[indexPath.row]
         
         audioPlayer = try? AVAudioPlayer(contentsOf: path)
-        
-        let fileName = URL(fileURLWithPath: path.absoluteString).deletingPathExtension().lastPathComponent
         
         let duration = audioPlayer.duration
         
@@ -34,7 +32,7 @@ extension RecorderViewController: UITableViewDelegate, UITableViewDataSource {
         let fileDuration = formatter.string(from: duration)
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = fileName
+        cell.textLabel?.text = recordings[indexPath.row].lastPathComponent
         cell.detailTextLabel!.text = fileDuration
 
         return cell
@@ -42,29 +40,28 @@ extension RecorderViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        let path = getDirectoryUrl().appendingPathComponent("Record_\(indexPath.row + 1).m4a")
-        print(path)
-            do {
-                audioPlayer = try AVAudioPlayer(contentsOf: path)
-                audioPlayer.play()
+        let path = recordings[indexPath.row]
+                
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: path)
+            audioPlayer.prepareToPlay()
+            audioPlayer.volume = 5
+            audioPlayer.play()
         } catch {
-            AlertController.alert(message: "Невозможно воспроизвести данный файл", target: self)
+            self.audioPlayer = nil
         }
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
-        let path = getDirectoryUrl().appendingPathComponent("Recording_\(indexPath.row + 1).m4a")
+        let path = recordings[indexPath.row]
         
         if editingStyle == .delete {
 
             do {
                 try? FileManager.default.removeItem(at: path)
-                numberOfRecords -= 1
-                tableView.deleteRows(at: [indexPath], with: .automatic)
-                UserDefaults.standard.set(numberOfRecords, forKey: "myNumber")
-            } catch {
-                AlertController.alert(message: "Невозможно удалить данный файл", target: self)
+                listRecordings()
+                listRecordingsTableView.reloadData()
             }
         }
     }
